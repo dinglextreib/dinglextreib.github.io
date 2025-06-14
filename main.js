@@ -13,6 +13,7 @@ let hlp
 let acin
 let save_file
 let ctr_mode
+let neg_acc
 
 const grav_const = 6.6743
 
@@ -67,7 +68,8 @@ function object_new(name, mass, size, color) {
 
 function acc() {
     if (parseFloat(acin.value)!= 0) {
-        force(hlp, {x:hlp.velocity.x, y:hlp.velocity.y}, parseFloat(acin.value))
+        let cf = parseFloat(acin.value); if (neg_acc) {cf = -parseFloat(acin.value); console.log("sss")}
+        force(hlp, {x:hlp.velocity.x, y:hlp.velocity.y}, cf)
     }
     
 }
@@ -95,12 +97,12 @@ function show_props() {
 function update_props() {
     if (hlp != undefined) {
         hlp.name = document.getElementById("na").value 
-        hlp.mass = parseInt(document.getElementById("st_mass").value)
-        hlp.size = parseInt(document.getElementById("st_size").value)
-        hlp.position.x = parseInt(document.getElementById("st_x").value) 
-        hlp.position.y = -parseInt(document.getElementById("st_y").value)
-        hlp.velocity.x = parseInt(document.getElementById("st_vx").value)
-        hlp.velocity.y = parseInt(document.getElementById("st_vy").value)
+        hlp.mass = parseFloat(document.getElementById("st_mass").value)
+        hlp.size = parseFloat(document.getElementById("st_size").value)
+        hlp.position.x = parseFloat(document.getElementById("st_x").value) 
+        hlp.position.y = -parseFloat(document.getElementById("st_y").value)
+        hlp.velocity.x = parseFloat(document.getElementById("st_vx").value)
+        hlp.velocity.y = parseFloat(document.getElementById("st_vy").value)
         hlp.button.innerHTML = hlp.name
         if (hlp.name == "") {
             hlp.button.innerHTML = "bez názvu"
@@ -147,8 +149,30 @@ function update() {
     c = Math.sin(runTime/100);
     c = (c+1)/2*255
     crt.style.color = `rgb(${255},${c},${255})`;
+
+    
+
     app_loop()
 }
+
+addEventListener("keydown", function(event) {
+    if (event.key == "Control") {
+        neg_acc = true
+        document.getElementById("acc").style.color = "rgb(157, 0, 0)"
+        document.getElementById("acc").innerHTML = "Akcelerovat planetu (Negativ)"
+    }
+})
+
+addEventListener("keyup", function(event) {
+    if (event.key == "Control") {
+        
+        neg_acc = false
+        document.getElementById("acc").style.color = "#313131"
+        document.getElementById("acc").innerHTML = "Akcelerovat planetu"
+    }
+})
+
+    
 
 function force(obj, dir, acc) {
     if (dir.x != 0 || dir.y != 0) {

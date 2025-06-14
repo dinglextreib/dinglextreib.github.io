@@ -27,7 +27,7 @@
         <button class="navbar" onclick="delAll()">Vyčistit</button>
         <button class="navbar" onclick="ld_ex()">Načíst příklad</button>
         <button class="navbar" onclick="save_session()">Uložit</button>
-            <select onclick="load_session()" class="navbar" name="saves" id="svs">
+            <select onclick="load_session()" class="navbar btn" name="saves" id="svs">
                 <option id="def" selected disabled hidden>Načíst</option>
             </select>
     </div>
@@ -79,7 +79,7 @@
     <div class="container">
         <div style="padding: 10px;"><button style="width: 100%;" onclick="n(); if (!paused) {switch_p()}">Vytvořit nový</button></div>
         <div style="padding: 10px;" class="flex-container">
-                    <button onclick="acc()" style="width: 50%;"> Akcelerovat planetu</button>
+                    <button onclick="acc()" style="width: 50%;" id="acc"> Akcelerovat planetu</button>
                     <button id="del" onclick="hlp.destroy()" style="width: 50%;"> Smazat planetu</button>
             </div>
     </div>

@@ -15,7 +15,7 @@
     padding: 0%;
   }
 
-button {
+button, .btn{
   background-color: #d0d0d0; /* Green */
   border: none;
   padding: 15px 32px;
