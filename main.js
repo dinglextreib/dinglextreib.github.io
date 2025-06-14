@@ -44,7 +44,7 @@ function object_new(name, mass, size, color) {
     plt.button = btn
     btn.innerHTML = plt.name
     if (plt.name == "") {
-        plt.button.innerHTML = "untitled"
+        plt.button.innerHTML = "bez názvu"
     }
     btn.onclick = function() {hlp = plt; show_props(); if (paused) {dis(false)}}
     document.getElementById("pltls").appendChild(btn)
@@ -103,7 +103,7 @@ function update_props() {
         hlp.velocity.y = parseInt(document.getElementById("st_vy").value)
         hlp.button.innerHTML = hlp.name
         if (hlp.name == "") {
-            hlp.button.innerHTML = "untitled"
+            hlp.button.innerHTML = "bez názvu"
     }   
     }
 }
@@ -111,10 +111,10 @@ function update_props() {
 function switch_si() {
     if (show_info) {
         show_info = false
-        document.getElementById("si").innerHTML = "Show info"
+        document.getElementById("si").innerHTML = "Ukázat info"
     } else {
         show_info = true
-        document.getElementById("si").innerHTML = "Hide info"
+        document.getElementById("si").innerHTML = "Schovat info"
     }
 }
 
@@ -123,11 +123,11 @@ let prlt = ["na", "st_mass", "st_size", "st_x", "st_y", "del", "st_vx", "st_vy"]
 function switch_p() {
     if (paused) {
         paused = false
-        document.getElementById("p").innerHTML = "Pause"
+        document.getElementById("p").innerHTML = "Pozastavit"
         dis(true)      
     } else {
         paused = true
-        document.getElementById("p").innerHTML = "Unpause"
+        document.getElementById("p").innerHTML = "Spustit"
         dis(false)
         if (hlp == undefined) {
           dis(true)  
@@ -160,9 +160,12 @@ function force(obj, dir, acc) {
 
 function ld_ex() {
     delAll()
-    pl = object_new("Planet 1", 5, 10, "red")
-    pl1 = object_new("Planet 2", 8000, 30, "blue")
-    moon = object_new("Moon 1", 1/81, 5, "gray")
+    pl = object_new("Země", 5, 10, "green")
+    pl1 = object_new("Slunce", 8000, 30, "yellow")
+    moon = object_new("Měsíc", 1/81, 5, "gray")
+    m = object_new("Venuše", 2, 9, "orange")
+    m.position.x = -185
+    m.velocity.y = 115
     moon.position.x = -385
     moon.velocity.y = -90
     pl.position.x = -400
@@ -209,7 +212,7 @@ function app_loop() {
                 p.position.x + canvas.width/2, p.position.y - 15 + canvas.height/2)
             context.font = "20px Arial"
             if (p.name == "") {
-                context.fillText("untitled" ,p.position.x + canvas.width/2, p.position.y -30 + canvas.height/2)
+                context.fillText("bez názvu" ,p.position.x + canvas.width/2, p.position.y -30 + canvas.height/2)
             } else {
                 context.fillText(p.name ,p.position.x + canvas.width/2, p.position.y -30 + canvas.height/2)
             }
@@ -226,7 +229,7 @@ function n() {
 }
 
 function save_session() {
-    let svn = window.prompt("Save all current planets and their properties","save name");
+    let svn = window.prompt("Uložit všechny planety a jejich nastavení.","název");
     if (!svn) {return}   
     console.log("n")
     const sv_tab = {name:svn, plts:planets.slice()}
@@ -244,11 +247,11 @@ function refresh_saves() {
         svs.removeChild(svs.lastChild);
     }
     let def = document.createElement("option")
-    def.value = "Load session"
+    def.value = "Načíst"
     def.disabled = true
     def.hidden = true
     def.selected = true
-    def.innerHTML = "Load session"
+    def.innerHTML = "Načíst"
     svs.appendChild(def)
     save_file = []
 
@@ -281,7 +284,7 @@ function refresh_saves() {
 }
 
 function load_session() {
-    if (svs.value != "Load session") {
+    if (svs.value != "Načíst") {
         delAll()
         console.log(svs.value)
         planets = []
@@ -290,7 +293,8 @@ function load_session() {
             s.position = {x:x.position.x, y:x.position.y}
             s.velocity = {x:x.velocity.x, y:x.velocity.y}
         }
-        svs.value = "Load session"
+        svs.value = "Načíst"
+        if (!paused) {switch_p()}
     }
 }
 
