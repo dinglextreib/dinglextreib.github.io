@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>STUCHY PRODUCTION</title>
+    <script src="main.js"></script>
+
+
+</head>
+<body onload="start()">  
+    
+    
+
+    <div class="fixed-box">
+        <h1 class="title">Gravity simulator</h1>
+    </div>
+
+    <div class="fixed-box" style="border-bottom: 4px dashed #2b1df4; position: relative; padding: 5px;">
+        <h1 id="credit" class="title" style="font-size: 200%; text-shadow: 3px 3px 0px #2b1df4; position: relative;"> By STUCHY GAMES</h1>
+    </div>
+
+    <div style="background-color: rgb(216, 216, 216); padding: 0px;" class="flex-container">
+        <button class="navbar" id="si" onclick="switch_si()">Show info</button>
+        <button class="navbar" id="p" onclick="switch_p()">Pause</button>
+        <button class="navbar" onclick="delAll()">Clear</button>
+        <button class="navbar" onclick="ld_ex()">Load example</button>
+        <button class="navbar" onclick="save_session()">Save session</button>
+            <select onclick="load_session()" class="navbar" name="saves" id="svs">
+                <option id="def" selected disabled hidden>Load session</option>
+            </select>
+    </div>
+
+    <div id="cd">
+        <canvas id="canvas" height="900" width="2800" style="background-color : black;"> </canvas>
+    </div>
+    
+    <div class="container">
+        <div>
+            <div> <h1 style="text-align: center;">List of planets</h1> </div>
+            <div style="padding: 10px;" id="pltls"></div>         
+        </div>
+        <div style="position: relative; ">
+            <div style="padding: 10px;"> <input class="inp" oninput="update_props()" id="na" type="text" value="Planet name" disabled> </div>
+            <div style="padding: 10px ;margin-left: 30%; margin-right: 30%; text-align: left; box-sizing: border-box;">
+                <div class="flex-container"><h2> Planet mass</h2>
+                <input oninput="update_props()" id="st_mass" type="number" value="52" disabled></div>
+
+                <div class="flex-container"><h2> Planet size</h2>
+                <input oninput="update_props()" id="st_size" type="number" value="52" disabled></div>
+
+                <div class="flex-container"><h2>Planet position</h2>
+                     <div style="padding: 0px; margin: 0;" class="flex-container">
+                        <input oninput="update_props()" id="st_x" type="number" value="52" disabled>
+                        <input oninput="update_props()" id="st_y" type="number" value="52" disabled>
+                    </div>
+                </div>
+
+                <div class="flex-container"><h2>Planet velocity</h2>
+                     <div style="padding: 0px; margin: 0;" class="flex-container">
+                        <input oninput="update_props()" id="st_vx" type="number" value="52" disabled>
+                        <input oninput="update_props()" id="st_vy" type="number" value="52" disabled>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="flex-container"><h2> Acceleration to be added</h2>
+                <input id="ac" type="number" step="5" value="0"></div>
+                
+                
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    <div class="container">
+        <div style="padding: 10px;"><button style="width: 100%;" onclick="n(); if (!paused) {switch_p()}">Create new</button></div>
+        <div style="padding: 10px;" class="flex-container">
+                    <button onclick="acc()" style="width: 50%;"> Accelerate planet</button>
+                    <button id="del" onclick="hlp.destroy()" style="width: 50%;"> Delete planet</button>
+            </div>
+    </div>
+    
+
+</body>
+</html>
