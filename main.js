@@ -15,6 +15,7 @@ let save_file
 let ctr_mode
 let neg_acc
 let last_sv
+let last_ld
 
 const grav_const = 6.6743
 
@@ -333,9 +334,22 @@ function load_session() {
             s.position = {x:x.position.x, y:x.position.y}
             s.velocity = {x:x.velocity.x, y:x.velocity.y}
         }
+        last_ld = svs.value
+        last_sv = save_file[svs.value].name
         svs.value = "Načíst"
         if (!paused) {switch_p()}
     }
+}
+
+function last_load() {
+    delAll()
+    planets = []
+    for (let x of save_file[last_ld].plts) {
+            let s = object_new(x.name, x.mass, x.size, x.color)
+            s.position = {x:x.position.x, y:x.position.y}
+            s.velocity = {x:x.velocity.x, y:x.velocity.y}
+        }
+    if (!paused) {switch_p()}
 }
 
 function enter_canvas() {
