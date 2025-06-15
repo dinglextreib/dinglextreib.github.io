@@ -14,6 +14,7 @@ let acin
 let save_file
 let ctr_mode
 let neg_acc
+let last_sv
 
 const grav_const = 6.6743
 
@@ -253,15 +254,30 @@ function n() {
 }
 
 function save_session() {
-    let svn = window.prompt("Uložit všechny planety a jejich nastavení.","název");
+    if (!last_sv) {last_sv = "název"}
+    let svn = window.prompt("Uložit všechny planety a jejich nastavení.", last_sv);
     if (!svn) {return}   
     console.log("n")
     const sv_tab = {name:svn, plts:planets.slice()}
     let str = JSON.stringify(sv_tab)
     let ret = JSON.parse(localStorage.getItem("grv"))
+    let ans
+    for (let x in ret) {
+        if (JSON.parse(ret[x]).name == svn) {
+            ans = window.confirm("S tímto názvem už uložená pozice existuje, kliknutím na OK ji přepíšete")
+            if (ans) {
+                ret[x] = str
+                localStorage.setItem("grv", JSON.stringify(ret))
+                last_sv = JSON.parse(ret[x]).name
+                refresh_saves()
+            }
+            return
+        }
+    }
     ret.push(str)
-
+    console.log("sss")
     localStorage.setItem("grv", JSON.stringify(ret))
+    last_sv = sv_tab.name
     refresh_saves()
     
 }
